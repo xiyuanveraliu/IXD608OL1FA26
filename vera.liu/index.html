@@ -1,10 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Vera Liu - IXD608</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUNE Jewelry</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #222;
+            background: #f7f5f1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 8%;
+            background: white;
+        }
+
+        nav a {
+            margin-left: 28px;
+            text-decoration: none;
+            color: #222;
+        }
+
+        .hero {
+            padding: 100px 8%;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #222;
+            color: white;
+            text-decoration: none;
+        }
+
+        .products {
+            padding: 70px 8%;
+            background: white;
+            text-align: center;
+        }
+
+        .product-grid {
+            display: flex;
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            flex: 1;
+            background: #f3f1ed;
+            padding: 60px 20px;
+        }
+
+        .about {
+            padding: 90px 20%;
+            text-align: center;
+        }
+
+        .newsletter {
+            padding: 70px 8%;
+            text-align: center;
+            background: #ddd8d0;
+        }
+
+        input {
+            padding: 12px;
+            width: 240px;
+            border: 1px solid #aaa;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            background: #222;
+            color: white;
+        }
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            background: #222;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Vera Liu</h1>
-    <p>IXD 608 Fall 2026</p>
+
+<header>
+    <h1>LUNE</h1>
+
+    <nav>
+        <a href="#">Shop</a>
+        <a href="#">About</a>
+        <a href="#">Journal</a>
+    </nav>
+</header>
+
+<main>
+
+    <section class="hero">
+        <p>MODERN PEARL JEWELRY</p>
+        <h2>Made to be worn, not saved.</h2>
+        <p>Natural pearls selected for everyday life.</p>
+        <a href="#" class="button">Shop Collection</a>
+    </section>
+
+    <section class="products">
+        <h2>Featured Pieces</h2>
+
+        <div class="product-grid">
+
+            <div class="product-card">
+                <h3>Pearl Pendant</h3>
+                <p>$165</p>
+            </div>
+
+            <div class="product-card">
+                <h3>Baroque Earrings</h3>
+                <p>$195</p>
+            </div>
+
+            <div class="product-card">
+                <h3>Pearl Ring</h3>
+                <p>$145</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="about">
+        <h2>Jewelry for everyday moments.</h2>
+        <p>
+            We choose natural pearls for their individual shape, color,
+            and glow, creating simple pieces designed to be worn for years.
+        </p>
+    </section>
+
+    <section class="newsletter">
+        <h2>Stay in the loop.</h2>
+        <p>New pieces, stories, and occasional updates.</p>
+
+        <input type="email" placeholder="Email address">
+        <button>Subscribe</button>
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 LUNE Jewelry</p>
+</footer>
+
 </body>
 </html>
