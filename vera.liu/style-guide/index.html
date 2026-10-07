@@ -52,9 +52,15 @@
             color: #222;
         }
 
+
+        /* TABLE OF CONTENTS */
+
         .toc {
             line-height: 2;
         }
+
+
+        /* COLORS */
 
         .color-row {
             display: flex;
@@ -87,15 +93,23 @@
             background: #ddd8d0;
         }
 
+
+        /* TYPOGRAPHY */
+
         .sample-heading {
             font-family: "Cormorant Garamond", serif;
-            font-size: 48px;
+            font-size: 42px;
+            margin-top: 0;
+            margin-bottom: 12px;
         }
 
         .sample-body {
             font-family: "Inter", sans-serif;
             font-size: 16px;
         }
+
+
+        /* BUTTONS */
 
         .button {
             display: inline-block;
@@ -106,14 +120,104 @@
             text-decoration: none;
         }
 
+
+        /* NAVIGATION */
+
+        .nav-sample {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-sample a {
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .nav-sample a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* PRODUCT CARDS */
+
+        .product-row {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .product-card {
+            width: 260px;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-card h3 {
+            margin-top: 14px;
+            margin-bottom: 4px;
+        }
+
+        .product-card p {
+            margin-top: 0;
+            font-size: 14px;
+        }
+
+
+        /* OVERLAY */
+
+        .overlay-sample {
+            position: relative;
+            width: 520px;
+            max-width: 100%;
+        }
+
+        .overlay-sample img {
+            width: 100%;
+            display: block;
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 48%;
+            right: 8%;
+            transform: translateY(-50%);
+            width: 38%;
+            text-align: left;
+            color: #222222;
+        }
+
+        .overlay-text h3 {
+            font-size: 32px;
+            margin: 0 0 8px;
+            color: #222222;
+        }
+
+        .overlay-text p {
+            margin: 0;
+            font-size: 14px;
+            color: #222222;
+        }
+
     </style>
 </head>
+
 
 <body>
 
     <h1>LUNE Style Guide</h1>
-    <p>A simple visual system for a modern pearl jewelry brand.</p>
 
+    <p>
+        A simple visual system for a modern pearl jewelry brand.
+    </p>
+
+
+    <!-- TABLE OF CONTENTS -->
 
     <h2>Table of Contents</h2>
 
@@ -123,8 +227,13 @@
         <li><a href="#text">Text Styles</a></li>
         <li><a href="#sizing">Sizing</a></li>
         <li><a href="#buttons">Buttons</a></li>
+        <li><a href="#navigation">Navigation</a></li>
+        <li><a href="#product-cards">Product Cards</a></li>
+        <li><a href="#overlay">Overlay</a></li>
     </ul>
 
+
+    <!-- COLORS -->
 
     <h2 id="colors">Colors</h2>
 
@@ -153,20 +262,31 @@
     </div>
 
 
+    <!-- TYPOGRAPHY -->
+
     <h2 id="typography">Typography</h2>
 
-    <p class="sample-heading">Cormorant Garamond</p>
-    <p>Used for headings and major titles.</p>
+    <p class="sample-heading">
+        Cormorant Garamond
+    </p>
+
+    <p>
+        Used for headings and major titles.
+    </p>
 
     <p class="sample-body">
         Inter — Used for body copy, navigation, and buttons.
     </p>
 
 
+    <!-- TEXT STYLES -->
+
     <h2 id="text">Text Styles</h2>
 
     <h1>Heading 1</h1>
+
     <h2>Heading 2</h2>
+
     <h3>Heading 3</h3>
 
     <p>
@@ -175,18 +295,150 @@
     </p>
 
 
+    <!-- SIZING -->
+
     <h2 id="sizing">Sizing</h2>
 
-    <p><strong>Hero Heading:</strong> 48px</p>
-    <p><strong>Section Heading:</strong> 32px</p>
-    <p><strong>Body:</strong> 16px</p>
-    <p><strong>Standard Gap:</strong> 24px</p>
-    <p><strong>Section Spacing:</strong> 70–100px</p>
+    <p>
+        <strong>Hero Heading:</strong> 48px
+    </p>
 
+    <p>
+        <strong>Section Heading:</strong> 32px
+    </p>
+
+    <p>
+        <strong>Body:</strong> 16px
+    </p>
+
+    <p>
+        <strong>Standard Gap:</strong> 24px
+    </p>
+
+    <p>
+        <strong>Section Spacing:</strong> 70–100px
+    </p>
+
+
+    <!-- BUTTONS -->
 
     <h2 id="buttons">Buttons</h2>
 
-    <a href="#" class="button">Shop Collection</a>
+    <a href="#" class="button">
+        Shop Collection
+    </a>
+
+
+    <!-- NAVIGATION -->
+
+    <h2 id="navigation">Navigation</h2>
+
+    <div class="nav-sample">
+
+        <a href="#">Shop</a>
+
+        <a href="#">About</a>
+
+        <a href="#">Journal</a>
+
+        <a href="#">Contact</a>
+
+    </div>
+
+
+    <!-- PRODUCT CARDS -->
+
+    <h2 id="product-cards">Product Cards</h2>
+
+    <div class="product-row">
+
+
+        <!-- PRODUCT 1 -->
+
+        <div class="product-card">
+
+            <img
+                src="images/earrings.jpg"
+                alt="Baroque pearl earrings"
+            >
+
+            <h3>
+                Baroque Pearl Earrings
+            </h3>
+
+            <p>
+                $185
+            </p>
+
+        </div>
+
+
+        <!-- PRODUCT 2 -->
+
+        <div class="product-card">
+
+            <img
+                src="images/necklace.jpg"
+                alt="Pearl necklace"
+            >
+
+            <h3>
+                Pearl Necklace
+            </h3>
+
+            <p>
+                $195
+            </p>
+
+        </div>
+
+
+        <!-- PRODUCT 3 -->
+
+        <div class="product-card">
+
+            <img
+                src="images/pendant.jpg"
+                alt="Baroque pearl pendant"
+            >
+
+            <h3>
+                Baroque Pearl Pendant
+            </h3>
+
+            <p>
+                $225
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- OVERLAY -->
+
+    <h2 id="overlay">Overlay</h2>
+
+    <div class="overlay-sample">
+
+        <img
+            src="images/pendant.jpg"
+            alt="Baroque pearl pendant"
+        >
+
+        <div class="overlay-text">
+
+            <h3>
+                Modern Pearls
+            </h3>
+
+            <p>
+                Designed for everyday wear.
+            </p>
+
+        </div>
+
+    </div>
 
 
 </body>
