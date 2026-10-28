@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Monica Gellar",
+    "type": "Chef",
+    "email": "monica@example.com",
+    "classes": [601, 608, 617, 820]
+  },
+  {
+    "id": 2,
+    "name": "Ross Gellar",
+    "type": "Professor",
+    "email": "ross@example.com",
+    "classes": [601, 608]
+  },
+  {
+    "id": 3,
+    "name": "Rachel Green",
+    "type": "Designer",
+    "email": "rachel@example.com",
+    "classes": [608, 617]
+  }
+]
