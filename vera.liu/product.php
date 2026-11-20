@@ -1,40 +1,88 @@
-<?php include __DIR__ . '/parts/header.php'; ?>
+<?php
+// Connect to MySQL database
+$conn = new mysqli(
+    "localhost",
+    "aau_user",
+    'sPeIOHz4K$GU1J.)',
+    "aau_products"
+);
+
+// Get product ID from URL
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+// Get product details
+$product = null;
+
+if ($id && $id > 0) {
+    $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $product = $result->fetch_assoc();
+
+    $stmt->close();
+}
+
+include __DIR__ . '/parts/header.php';
+?>
 
 <main>
 
-    <!-- Product Details -->
-    <section class="hero">
+    <?php if ($product): ?>
 
-        <p>LUNE JEWELRY</p>
+        <!-- Product Details -->
+        <section class="hero">
 
-        <h2>Baroque Pearl Earrings</h2>
+            <p>LUNE JEWELRY</p>
 
-        <p>$195</p>
+            <h2>
+                <?= htmlspecialchars($product['name']) ?>
+            </h2>
 
-        <p>
-            A modern interpretation of classic pearl jewelry.
-            Featuring naturally unique baroque pearls,
-            thoughtfully selected for their shape and luster.
-        </p>
+            <p>
+                $<?= number_format((float)$product['price'], 2) ?>
+            </p>
 
-        <a href="cart.php" class="button">Add to Cart</a>
+            <p>
+                <?= nl2br(htmlspecialchars($product['description'] ?? '')) ?>
+            </p>
 
-    </section>
+           <a href="cart.php?id=<?= (int)$product['id'] ?>" class="button">
+           Add to Cart
+        </a>
 
-    <!-- Product Information -->
-    <section class="about">
+        </section>
 
-        <h2>Product Details</h2>
+        <!-- Product Information -->
+        <section class="about">
 
-        <p>Material: Natural Freshwater Pearls</p>
+            <h2>Product Details</h2>
 
-        <p>Style: Modern, Minimalist</p>
+            <p>
+                Category:
+                <?= htmlspecialchars($product['category'] ?? '') ?>
+            </p>
 
-        <p>Each pearl is naturally unique in shape and appearance.</p>
+            <p>Natural pearls, thoughtfully selected for everyday wear.</p>
 
-        <a href="shop.php" class="button">Back to Shop</a>
+            <a href="shop.php" class="button">Back to Shop</a>
 
-    </section>
+        </section>
+
+    <?php else: ?>
+
+        <section class="hero">
+
+            <h2>Product Not Found</h2>
+
+            <p>Sorry, this product is not available.</p>
+
+            <a href="shop.php" class="button">Back to Shop</a>
+
+        </section>
+
+    <?php endif; ?>
 
 </main>
 
@@ -42,3 +90,5 @@
 
 </body>
 </html>
+
+<?php $conn->close(); ?>

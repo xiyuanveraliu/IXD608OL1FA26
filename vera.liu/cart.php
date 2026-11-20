@@ -1,4 +1,31 @@
-<?php include __DIR__ . '/parts/header.php'; ?>
+<?php
+// Connect to database
+$conn = new mysqli(
+    "localhost",
+    "aau_user",
+    'sPeIOHz4K$GU1J.)',
+    "aau_products"
+);
+
+// Get product ID
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+$product = null;
+
+// Find product
+if ($id > 0) {
+    $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $product = $result->fetch_assoc();
+
+    $stmt->close();
+}
+
+include __DIR__ . '/parts/header.php';
+?>
 
 <main>
 
@@ -9,9 +36,7 @@
 
         <h2>Your Shopping Bag</h2>
 
-        <p>
-            A little something special, just for you.
-        </p>
+        <p>A little something special, just for you.</p>
 
     </section>
 
@@ -22,15 +47,27 @@
 
         <div class="product-grid">
 
-            <div class="product-card">
+            <?php if ($product): ?>
 
-                <h3>Baroque Pearl Earrings</h3>
+                <div class="product-card">
 
-                <p>Quantity: 1</p>
+                    <h3>
+                        <?= htmlspecialchars($product['name']) ?>
+                    </h3>
 
-                <p>$195</p>
+                    <p>Quantity: 1</p>
 
-            </div>
+                    <p>
+                        $<?= number_format((float)$product['price'], 2) ?>
+                    </p>
+
+                </div>
+
+            <?php else: ?>
+
+                <p>Your shopping bag is empty.</p>
+
+            <?php endif; ?>
 
         </div>
 
@@ -41,13 +78,26 @@
 
         <h2>Order Summary</h2>
 
-        <p>Subtotal: $195</p>
+        <?php if ($product): ?>
 
-        <p>
-            Shipping and taxes will be calculated at checkout.
-        </p>
+            <p>
+                Subtotal:
+                $<?= number_format((float)$product['price'], 2) ?>
+            </p>
 
-        <button type="button">Proceed to Checkout</button>
+            <p>
+                Shipping and taxes will be calculated at checkout.
+            </p>
+
+            <button type="button">
+                Proceed to Checkout
+            </button>
+
+        <?php else: ?>
+
+            <p>No items in your bag yet.</p>
+
+        <?php endif; ?>
 
         <p>
             <a href="shop.php">Continue Shopping</a>
@@ -61,3 +111,5 @@
 
 </body>
 </html>
+
+<?php $conn->close(); ?>

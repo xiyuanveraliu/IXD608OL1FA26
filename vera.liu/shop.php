@@ -1,4 +1,23 @@
-<?php include __DIR__ . '/parts/header.php'; ?>
+<?php
+// Connect to MySQL database
+$conn = new mysqli(
+    "localhost",
+    "aau_user",
+    "YOUR_DATABASE_PASSWORD",
+    "aau_products"
+);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Database connection failed.");
+}
+
+// Get products
+$sql = "SELECT * FROM products";
+$result = $conn->query($sql);
+
+include __DIR__ . '/parts/header.php';
+?>
 
 <main>
 
@@ -14,23 +33,36 @@
 
         <div class="product-grid">
 
-            <div class="product-card">
-                <h3>Pearl Pendant</h3>
-                <p>$165</p>
-                <a href="product.php" class="button">View Details</a>
-            </div>
+            <?php if ($result && $result->num_rows > 0): ?>
 
-            <div class="product-card">
-                <h3>Baroque Earrings</h3>
-                <p>$195</p>
-                <a href="product.php" class="button">View Details</a>
-            </div>
+                <?php while ($product = $result->fetch_assoc()): ?>
 
-            <div class="product-card">
-                <h3>Pearl Ring</h3>
-                <p>$145</p>
-                <a href="product.php" class="button">View Details</a>
-            </div>
+                    <div class="product-card">
+
+                       <h3>
+                       <?= htmlspecialchars($product['name']) ?>
+                       </h3>
+
+                        <p>
+                            $<?= number_format((float)$product['price'], 2) ?>
+                        </p>
+
+                        <a
+                            href="product.php?id=<?= (int)$product['id'] ?>"
+                            class="button"
+                        >
+                            View Details
+                        </a>
+
+                    </div>
+
+                <?php endwhile; ?>
+
+            <?php else: ?>
+
+                <p>No products available.</p>
+
+            <?php endif; ?>
 
         </div>
 
@@ -42,3 +74,5 @@
 
 </body>
 </html>
+
+<?php $conn->close(); ?>
