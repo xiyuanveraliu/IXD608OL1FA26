@@ -1,19 +1,15 @@
 <?php
-// Connect to MySQL database
-$conn = new mysqli(
-    "localhost",
-    "aau_user",
-    'sPeIOHz4K$GU1J.)',
-    "aau_products"
-);
+// Connect to database
+require __DIR__ . '/config.php';
 
-// Get product ID from URL
+// Get product ID
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
-// Get product details
 $product = null;
 
+// Get product details
 if ($id && $id > 0) {
+
     $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -48,11 +44,58 @@ include __DIR__ . '/parts/header.php';
                 <?= nl2br(htmlspecialchars($product['description'] ?? '')) ?>
             </p>
 
-           <a href="cart.php?id=<?= (int)$product['id'] ?>" class="button">
-           Add to Cart
-        </a>
+            <!-- Add to Cart Form -->
+            <form action="cart_actions.php?action=add-to-cart" method="post">
+
+                <input
+                    type="hidden"
+                    name="product-id"
+                    value="<?= (int)$product['id'] ?>"
+                >
+
+                <!-- Pearl Color -->
+                <p>
+                    <label for="color">Pearl Color</label>
+                </p>
+
+                <select name="color" id="color">
+
+                    <option value="White">White</option>
+                    <option value="Pink">Pink</option>
+                    <option value="Lavender">Lavender</option>
+
+                </select>
+
+                <!-- Quantity -->
+                <p>
+                    <label for="amount">Quantity</label>
+                </p>
+
+                <select name="amount" id="amount">
+
+                    <?php for ($i = 1; $i <= 10; $i++): ?>
+
+                        <option value="<?= $i ?>">
+                            <?= $i ?>
+                        </option>
+
+                    <?php endfor; ?>
+
+                </select>
+
+                <!-- Add to Cart Button -->
+                <p>
+                    <input
+                        type="submit"
+                        class="button"
+                        value="Add to Cart"
+                    >
+                </p>
+
+            </form>
 
         </section>
+
 
         <!-- Product Information -->
         <section class="about">
@@ -64,21 +107,28 @@ include __DIR__ . '/parts/header.php';
                 <?= htmlspecialchars($product['category'] ?? '') ?>
             </p>
 
-            <p>Natural pearls, thoughtfully selected for everyday wear.</p>
+            <p>
+                Natural pearls, thoughtfully selected for everyday wear.
+            </p>
 
-            <a href="shop.php" class="button">Back to Shop</a>
+            <a href="shop.php" class="button">
+                Back to Shop
+            </a>
 
         </section>
 
     <?php else: ?>
 
+        <!-- Product Not Found -->
         <section class="hero">
 
             <h2>Product Not Found</h2>
 
             <p>Sorry, this product is not available.</p>
 
-            <a href="shop.php" class="button">Back to Shop</a>
+            <a href="shop.php" class="button">
+                Back to Shop
+            </a>
 
         </section>
 
