@@ -98,3 +98,62 @@ header h1 a {
     color: #222;
     text-decoration: none;
 }
+
+/* Module 12: Search, Sort, and Filter */
+
+.shop-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px auto;
+    max-width: 700px;
+}
+
+.shop-controls input,
+.shop-controls select {
+    padding: 12px;
+    border: 1px solid #aaa;
+    background: white;
+    color: #222;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    width: 240px;
+    box-sizing: border-box;
+}
+
+.shop-controls .button {
+    margin-top: 0;
+    padding: 12px 24px;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Responsive Layout */
+
+@media (max-width: 600px) {
+    .shop-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .shop-controls input,
+    .shop-controls select,
+    .shop-controls .button {
+        width: 100%;
+    }
+
+    .product-grid {
+        flex-direction: column;
+    }
+
+    .hero {
+        padding: 60px 8%;
+    }
+
+    .hero h2 {
+        font-size: 36px;
+    }
+}
