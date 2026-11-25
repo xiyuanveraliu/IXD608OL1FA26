@@ -1,16 +1,6 @@
 <?php
 // Connect to MySQL database
-$conn = new mysqli(
-    "localhost",
-    "aau_user",
-    "YOUR_DATABASE_PASSWORD",
-    "aau_products"
-);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Database connection failed.");
-}
+require __DIR__ . '/config.php';
 
 // Get products
 $sql = "SELECT * FROM products";
@@ -39,9 +29,9 @@ include __DIR__ . '/parts/header.php';
 
                     <div class="product-card">
 
-                       <h3>
-                       <?= htmlspecialchars($product['name']) ?>
-                       </h3>
+                        <h3>
+                            <?= htmlspecialchars($product['name']) ?>
+                        </h3>
 
                         <p>
                             $<?= number_format((float)$product['price'], 2) ?>
