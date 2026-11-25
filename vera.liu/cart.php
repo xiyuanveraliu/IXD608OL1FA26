@@ -1,35 +1,23 @@
 <?php
-// Connect to database
-$conn = new mysqli(
-    "localhost",
-    "aau_user",
-    'sPeIOHz4K$GU1J.)',
-    "aau_products"
-);
+// Cart Page - Module 11
 
-// Get product ID
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+// Get cart functions and database connection
+require __DIR__ . '/parts/cart_functions.php';
+require __DIR__ . '/config.php';
 
-$product = null;
+// Get cart items
+$items = cartItemsFromDatabase($conn);
 
-// Find product
-if ($id > 0) {
-    $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
+// Calculate cart totals
+$totals = cartTotals($items);
 
-    $result = $stmt->get_result();
-    $product = $result->fetch_assoc();
-
-    $stmt->close();
-}
-
+// Include header
 include __DIR__ . '/parts/header.php';
 ?>
 
 <main>
 
-    <!-- Cart Hero -->
+    <!-- Cart Header -->
     <section class="hero">
 
         <p>LUNE JEWELRY</p>
@@ -40,6 +28,7 @@ include __DIR__ . '/parts/header.php';
 
     </section>
 
+
     <!-- Cart Items -->
     <section class="products">
 
@@ -47,21 +36,94 @@ include __DIR__ . '/parts/header.php';
 
         <div class="product-grid">
 
-            <?php if ($product): ?>
+            <?php if ($items): ?>
 
-                <div class="product-card">
+                <?php foreach ($items as $item): ?>
 
-                    <h3>
-                        <?= htmlspecialchars($product['name']) ?>
-                    </h3>
+                    <div class="product-card">
 
-                    <p>Quantity: 1</p>
+                        <h3>
+                            <?= htmlspecialchars($item['name']) ?>
+                        </h3>
 
-                    <p>
-                        $<?= number_format((float)$product['price'], 2) ?>
-                    </p>
+                        <p>
+                            Pearl Color:
+                            <?= htmlspecialchars($item['color']) ?>
+                        </p>
 
-                </div>
+                        <p>
+                            Price:
+                            $<?= number_format((float)$item['price'], 2) ?>
+                        </p>
+
+                        <!-- Update Quantity -->
+                        <form action="cart_actions.php?action=update-cart-item" method="post">
+
+                            <input
+                                type="hidden"
+                                name="key"
+                                value="<?= htmlspecialchars($item['key']) ?>"
+                            >
+
+                            <p>
+                                <label for="amount-<?= htmlspecialchars($item['key']) ?>">
+                                    Quantity
+                                </label>
+                            </p>
+
+                            <select
+                                name="amount"
+                                id="amount-<?= htmlspecialchars($item['key']) ?>"
+                            >
+
+                                <?php for ($i = 1; $i <= 10; $i++): ?>
+
+                                    <option
+                                        value="<?= $i ?>"
+                                        <?= $i === $item['amount'] ? 'selected' : '' ?>
+                                    >
+                                        <?= $i ?>
+                                    </option>
+
+                                <?php endfor; ?>
+
+                            </select>
+
+                            <p>
+                                <input
+                                    type="submit"
+                                    value="Update"
+                                    class="button"
+                                >
+                            </p>
+
+                        </form>
+
+                        <!-- Item Total -->
+                        <p>
+                            Item Total:
+                            $<?= number_format($item['total'], 2) ?>
+                        </p>
+
+                        <!-- Remove Item -->
+                        <form action="cart_actions.php?action=delete-cart-item" method="post">
+
+                            <input
+                                type="hidden"
+                                name="key"
+                                value="<?= htmlspecialchars($item['key']) ?>"
+                            >
+
+                            <input
+                                type="submit"
+                                value="Remove"
+                            >
+
+                        </form>
+
+                    </div>
+
+                <?php endforeach; ?>
 
             <?php else: ?>
 
@@ -73,34 +135,57 @@ include __DIR__ . '/parts/header.php';
 
     </section>
 
+
     <!-- Cart Summary -->
     <section class="about">
 
         <h2>Order Summary</h2>
 
-        <?php if ($product): ?>
+        <p>
+            Subtotal:
+            $<?= number_format($totals['subtotal'], 2) ?>
+        </p>
 
+        <p>
+            Taxes (7.25% class example):
+            $<?= number_format($totals['tax'], 2) ?>
+        </p>
+
+        <p>
+            <strong>
+                Total:
+                $<?= number_format($totals['total'], 2) ?>
+            </strong>
+        </p>
+
+        <?php if ($items): ?>
+
+            <!-- Checkout -->
             <p>
-                Subtotal:
-                $<?= number_format((float)$product['price'], 2) ?>
+                <a href="checkout.php" class="button">
+                    Checkout
+                </a>
             </p>
 
-            <p>
-                Shipping and taxes will be calculated at checkout.
-            </p>
+            <!-- Clear Cart -->
+            <form action="cart_actions.php?action=reset-cart" method="post">
 
-            <button type="button">
-                Proceed to Checkout
-            </button>
+                <p>
+                    <input
+                        type="submit"
+                        value="Clear Bag"
+                    >
+                </p>
 
-        <?php else: ?>
-
-            <p>No items in your bag yet.</p>
+            </form>
 
         <?php endif; ?>
 
+        <!-- Continue Shopping -->
         <p>
-            <a href="shop.php">Continue Shopping</a>
+            <a href="shop.php" class="button">
+                Continue Shopping
+            </a>
         </p>
 
     </section>
